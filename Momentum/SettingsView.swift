@@ -23,12 +23,8 @@ struct SettingsView: View {
             Form{
                 generalSection
                 supportSection
-                Section(header: Text("Community")){
-                    
-                }
-                
+                communitySection
             }
-            .navigationBarTitle(Text("Settings"))
         }
         
         .mailView($isShowingMailSheet, recipients:["aman@naviteklabs.com"])
@@ -61,7 +57,7 @@ extension SettingsView {
     }
 }
 
-// General Section
+// MARK: - General Section
 extension SettingsView{
     var generalSection: some View{
         Section(header: Text("General")){
@@ -126,20 +122,76 @@ extension SettingsView{
     }
 }
 
+
+// MARK: - Support Section
 extension SettingsView{
     private var supportSection: some View{
         Section(header:Text("Support")){
             Button(action:{handleGetInTouch()}){
-                Label{Text("Get in touch").foregroundStyle(Color.primary)}icon: {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(Color.blue.opacity(0.8))
-                            .frame(width:30,height:30)
-                        Image(systemName: "mail.fill")
-                            .font(.system(size: 14))
-                            .foregroundColor(.white)
-                        
+                HStack{
+                    Label{Text("Get in touch").foregroundStyle(Color.primary)}icon: {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.blue.opacity(0.8))
+                                .frame(width:30,height:30)
+                            Image(systemName: "mail.fill")
+                                .font(.system(size: 14))
+                                .foregroundColor(.white)
+                            
+                        }
                     }
+                    Spacer()
+                    Image(systemName:"chevron.right")
+                }
+            }
+            Link(destination:URL(string:"https://amang.me")!){
+                HStack{
+                    Label{Text("Data & Privacy").foregroundStyle(Color.primary)}icon: {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.black.opacity(1))
+                                .frame(width:30,height:30)
+                            Image(systemName: "lock.fill")
+                                .font(.system(size: 14))
+                                .foregroundColor(.white)
+                            
+                        }
+                    }
+                    Spacer()
+                    Image(systemName:"chevron.right")
+                }
+            }
+        }
+    }
+}
+
+
+// MARK: - Community Section
+
+extension SettingsView{
+    private var communitySection: some View{
+        Section(header:Text("Community")){
+            CommunityButton(urlString:"https://amang.me", iconName:"star.fill", label:"Come hangout on")
+            CommunityButton(urlString:"https://amang.me", iconName:"star.fill", label:"Say Hi on X")
+            CommunityButton(urlString:"https://amang.me", iconName:"star.fill", label:"Rate Subby")
+        }
+    }
+}
+
+struct CommunityButton: View{
+    var urlString: String = "https://amang.me"
+    var iconName:String = "star.fill"
+    var label:String = "Rate Subby"
+    var body: some View{
+        Link(destination: URL(string:urlString)!){
+            Label{Text(label).foregroundStyle(Color.primary)} icon:{
+                ZStack{
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.yellow.opacity(0.8))
+                        .frame(width:30,height:30)
+                    Image(systemName:iconName)
+                        .font(.system(size:14))
+                        .foregroundColor(.white)
                 }
             }
         }
