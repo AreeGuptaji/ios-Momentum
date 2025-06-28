@@ -28,10 +28,7 @@ struct SubscriptionListView: View {
                     .padding(.horizontal,15)
                     
                     VStack{
-                        SubscriptionItem()
-                        SubscriptionItem()
-                        SubscriptionItem()
-                        SubscriptionItem()
+                        SubscriptionItem(subscriptionName:"Youtube Premium",cost:"195", daysLeft: "17")
                     }
                     .padding(.vertical)
                     
@@ -80,7 +77,7 @@ extension SubscriptionListView{
                 
             }
             Button(action:{}){
-                Image(systemName:"arrow.up")
+                Image(systemName:"arrow.up.arrow.down")
                     .foregroundStyle(.white)
                     .background{
                         Circle()
@@ -139,21 +136,37 @@ struct InfoBlock: View{
 
 
 struct SubscriptionItem: View{
+    var icon: String?
+    var subscriptionName: String
+    var cost: String
+    var daysLeft: String
     var gaugeValue: Double = 0.75
     var body: some View{
         HStack{
             RoundedRectangle(cornerRadius:10)
+                .fill(Color.random(randomOpacity: true))
                 .frame(width:50,height:50)
+                .overlay{
+                    if let first = subscriptionName.first{
+                        Text(String(first).uppercased())
+                            .font(.system(size:30))
+                            .foregroundStyle(.primary)
+                    }
+                }
             VStack(alignment: .leading){
-                Text("Google Workspace")
-                Text("$850/m")
+                Text(subscriptionName)
+                    .fontWeight(.bold)
+                    
+                
+                Text("₹\(cost) /m")
+                    .fontWeight(.light)
             }
             VStack{
                 
                 Gauge(value: gaugeValue){
                     HStack{
                         Spacer()
-                        Text("23 days")
+                        Text("\(daysLeft) days left")
                     }
                     .padding(.horizontal,5)
                 }
