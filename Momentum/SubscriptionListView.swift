@@ -166,7 +166,7 @@ struct SubscriptionItem: View{
                 Gauge(value: gaugeValue){
                     HStack{
                         Spacer()
-                        Text("\(daysLeft) days left")
+                        Text("\(daysLeft) days")
                     }
                     .padding(.horizontal,5)
                 }
